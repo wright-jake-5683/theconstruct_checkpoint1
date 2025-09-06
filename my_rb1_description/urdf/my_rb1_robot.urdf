@@ -1,0 +1,110 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rb1_robot">
+
+    <xacro:include filename="my_rb1_robot_include.xacro" />
+
+    <!-- Base footprint link -->
+    <link name="base_footprint">
+    </link>
+
+    <!-- Joint connecting base_link and base_footprint -->
+    <joint name="base_link_plate_joint" type="fixed">
+        <origin xyz="0 0 .175" rpy="0 0 0"/>
+        <parent link="base_footprint"/>
+        <child link="base_link"/>  
+    </joint>
+
+
+    <!-- Base link -->
+    <link name="base_link">
+        <xacro:inertial_cylinder mass="20" length=".3" radius=".25">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_cylinder>
+
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius=".25" length=".3"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius=".25" length=".3"/>
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- Joint connecting base_link and left_wheel -->
+    <joint name="base_link_left_wheel_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="0 -0.2 -.15" />
+        <child link="left_wheel" />
+        <parent link="base_link" />
+        <axis rpy="0 0 0" xyz="0 1 0" />
+        <limit effort="10000" velocity="1000" />
+        <joint_properties damping="1.0" friction="1.0" />
+    </joint>
+
+    <!-- Left wheel link -->
+    <link name="left_wheel">
+        <xacro:inertial_cylinder mass="1" length=".03" radius=".025">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_cylinder>
+
+        <collision>
+            <origin rpy="1.5707 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius=".025" length=".03"/>
+            </geometry>
+        </collision>
+
+            <visual>
+            <origin rpy="1.5707 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius=".025" length=".03"/>
+            </geometry>
+            <material name="red">
+                <color rgba="1 0 0 1"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- Joint connecting base_link and left_wheel -->
+    <joint name="base_link_right_wheel_joint" type="continuous">
+        <origin rpy="0 0 0" xyz="0 0.2 -.15" />
+        <child link="right_wheel" />
+        <parent link="base_link" />
+        <axis rpy="0 0 0" xyz="0 1 0" />
+        <limit effort="10000" velocity="1000" />
+        <joint_properties damping="1.0" friction="1.0" />
+    </joint>
+
+    <!-- Right wheel link -->
+    <link name="right_wheel">
+        <xacro:inertial_cylinder mass="1" length=".03" radius=".025">
+                <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_cylinder>
+
+        <collision>
+            <origin rpy="1.5707 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius=".025" length=".03"/>
+            </geometry>
+        </collision>
+
+            <visual>
+            <origin rpy="1.5707 0 0" xyz="0 0 0" />
+            <geometry>
+                <cylinder radius=".025" length=".03"/>
+            </geometry>
+            <material name="red">
+                <color rgba="1 0 0 1"/>
+            </material>
+        </visual>
+    </link>
+
+</robot>
