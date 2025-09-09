@@ -128,7 +128,7 @@
             </geometry>
         </collision>
 
-            <visual>
+        <visual>
             <origin rpy="1.5707 0 0" xyz="0 0 0" />
             <geometry>
                 <cylinder radius=".025" length=".04"/>
@@ -296,6 +296,25 @@
                 </noise>
             </ray>
         </sensor>
+    </gazebo>
+
+    <!-- Differential Drive Plugin -->
+    <!-- Wheel Separation = distance_between_wheel_joints -->
+    <gazebo>
+        <plugin
+            filename="libignition-gazebo-diff-drive-system.so"
+            name="ignition::gazebo::systems::DiffDrive">
+            <left_joint>base_link_left_wheel_joint</left_joint>
+            <right_joint>base_link_right_wheel_joint</right_joint>
+            <wheel_separation>0.4</wheel_separation>
+            <wheel_radius>0.025</wheel_radius>
+            <odom_publish_frequency>20</odom_publish_frequency>
+            <topic>cmd_vel</topic>
+            <odom_topic>odom</odom_topic>
+            <tf_topic>tf</tf_topic>
+            <frame_id>odom</frame_id>
+            <child_frame_id>base_link</child_frame_id>
+        </plugin>
     </gazebo>
 
 </robot>
