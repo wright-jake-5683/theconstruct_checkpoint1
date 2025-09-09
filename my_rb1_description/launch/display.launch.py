@@ -21,7 +21,6 @@ def generate_launch_description():
     rviz_config_file = "config.rviz"
     rviz_config_path = os.path.join(package_directory, "rviz", rviz_config_file)
     print("RViz Config Loaded !")
-    print(f"robot_desc_path: {robot_desc_path}")
 
     # Robot State Publisher (RSP) #
     robot_state_publisher_node = Node(
@@ -32,6 +31,14 @@ def generate_launch_description():
         emulate_tty=True,
         parameters=[{'use_sim_time': True, 
                      'robot_description': launch_ros.descriptions.ParameterValue(Command(['xacro ', robot_desc_path]), value_type=str)}]
+    )
+    
+    # Joint State Publisher GUI
+    joint_state_publisher_gui = Node (
+        package="joint_state_publisher_gui",
+        executable= "joint_state_publisher_gui",
+        name="joint_state_publisher_gui",
+        output="screen"
     )
 
     # RViz2 Launch Configuration (RViz) #
@@ -49,6 +56,7 @@ def generate_launch_description():
     return LaunchDescription(
         [
             robot_state_publisher_node,
+            joint_state_publisher_gui,
             rviz_node,
         ]
     )
